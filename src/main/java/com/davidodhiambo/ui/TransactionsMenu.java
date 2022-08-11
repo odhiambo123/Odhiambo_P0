@@ -5,9 +5,6 @@ import com.davidodhiambo.data.CustomerModel;
 
 
 public class TransactionsMenu {
-    BankModel bm = new BankModel();
-    CustomerModel cm = new CustomerModel();
-
 
     public void deposit(String accountType, int amount) {
 

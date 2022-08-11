@@ -5,7 +5,6 @@ import com.davidodhiambo.data.CustomerModel;
 import java.sql.SQLException;
 
 public class Login {
-    MyConnectionJDBC myConnectionJDBC = new MyConnectionJDBC();
 
     public Login() throws SQLException {
     }

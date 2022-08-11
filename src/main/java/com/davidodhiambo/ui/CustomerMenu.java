@@ -5,8 +5,6 @@ import com.davidodhiambo.data.CustomerModel;
 import com.davidodhiambo.service.Login;
 
 public class CustomerMenu {
-    CustomerModel cm = new CustomerModel();
-    BankModel bm = new BankModel();
 
     public void displayMenu() {
         System.out.println("Welcome to the Bank of the People");

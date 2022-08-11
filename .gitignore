@@ -1,5 +1,5 @@
 #
-dbConfig.properties
+src/main/java/com/davidodhiambo/service/config.properties
 # Compiled class file
 *.class
 

@@ -1,17 +1,18 @@
 package com.davidodhiambo.service;
 
 import com.davidodhiambo.data.EmployeeModel;
-import com.davidodhiambo.data.IEmployeeDao;
+import com.davidodhiambo.data.BankDao;
 
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDaoImpl implements IEmployeeDao {
+public class EmployeeDaoImpl implements BankDao {
 
     Connection conn;
 
-    public EmployeeDaoImpl(){
+    public EmployeeDaoImpl() {
         conn = MyConnectionJDBC.getConnection();
 
     }
@@ -83,7 +84,18 @@ public class EmployeeDaoImpl implements IEmployeeDao {
     }
 
     @Override
-    public EmployeeModel getEmployeeById(int id) throws SQLException {
-        return null;
+    public EmployeeModel getEmployeeById(int empid) throws SQLException {
+        EmployeeModel employee = new EmployeeModel();
+        String sql = "SELECT * FROM employee WHERE id = " + empid;
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        rs.next();
+        int id = rs.getInt(1);
+        String fname = rs.getString(2);
+        String lname = rs.getString(3);
+        String email = rs.getString(4);
+        employee = new EmployeeModel(id, fname, lname, email);
+
+        return employee;
     }
 }

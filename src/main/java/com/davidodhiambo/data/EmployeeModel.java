@@ -14,6 +14,10 @@ public class EmployeeModel {
 
     }
 
+    public EmployeeModel() {
+
+    }
+
     public int getId() {
         return id;
     }

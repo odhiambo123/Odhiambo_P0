@@ -2,13 +2,13 @@ package com.davidodhiambo.data;
 
 import com.davidodhiambo.service.EmployeeDaoImpl;
 
-public class EmployeeDaoFactory {
-    private static IEmployeeDao iemployeeDao;
+public class BankDaoFactory {
+    private static BankDao iemployeeDao;
 
-    private EmployeeDaoFactory() {
+    private BankDaoFactory() {
     }
 
-    public static IEmployeeDao getIEmployeeDao() {
+    public static BankDao getIEmployeeDao() {
         if(iemployeeDao == null) {
             iemployeeDao = new EmployeeDaoImpl();
         }
