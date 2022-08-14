@@ -1,18 +1,16 @@
 package com.davidodhiambo.service;
 
-import com.davidodhiambo.data.EmployeeModel;
-import com.davidodhiambo.data.BankDao;
+import com.davidodhiambo.data.*;
 
-import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDaoImpl implements BankDao {
+public class BankDaoImpl implements BankDao {
 
     Connection conn;
 
-    public EmployeeDaoImpl() {
+    public BankDaoImpl() {
         conn = MyConnectionJDBC.getConnection();
 
     }
@@ -98,4 +96,42 @@ public class EmployeeDaoImpl implements BankDao {
 
         return employee;
     }
+
+    @Override
+    public void deleteCheckingAccount(int accnumber) throws SQLException {
+        String sql = "DELETE FROM checkingaccount WHERE accnumber = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, accnumber);
+        int count = ps.executeUpdate();
+        if(count > 0){
+            System.out.println("Cheking account deleted successfully");
+        }else {
+            System.out.println("Cheking account not deleted Something went wrong");
+        }
+    }
+
+    @Override
+    public void deleteSavingsAccount(int accnumber) throws SQLException {
+        String sql = "DELETE FROM savingsaccount WHERE accnumber = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, accnumber);
+        int count = ps.executeUpdate();
+        if(count > 0){
+            System.out.println("Savings account deleted successfully");
+        }else {
+            System.out.println("Savings account not deleted Something went wrong");
+        }
+
+    }
+
+    @Override
+    public void addSavingsAccount(SavingsAccountModel savingsaccount) throws SQLException {
+
+    }
+
+    @Override
+    public void addCheckingAccount(CheckingAccountModel chekingaccount) throws SQLException {
+
+    }
+
 }

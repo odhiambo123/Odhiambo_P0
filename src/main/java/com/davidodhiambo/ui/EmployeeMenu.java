@@ -1,38 +1,25 @@
 package com.davidodhiambo.ui;
 
+import com.davidodhiambo.service.MyConnectionJDBC;
+
+import java.sql.SQLException;
+
 public class EmployeeMenu {
-    public static void displayMenu() {
+    public static void displayMenu() throws SQLException {
+        System.out.println("Welcome Back!");
         System.out.println("Employee Menu");
-        System.out.println("1. Create Employee");
-        System.out.println("2. Update Employee");
-        System.out.println("3. Delete Employee");
+        System.out.println("1. Create Customer");
+        System.out.println("2. Update Customer");
+        System.out.println("3. Delete Customer");
         System.out.println("4. List Employees");
-        System.out.println("5. Login");
-        System.out.println("6. Exit");
+        System.out.println("5. Approve Customer");
+        System.out.println("6. Reject Customer");
+        System.out.println("7. Eixt");
         System.out.println("Enter your choice: ");
         int choice = Integer.parseInt(System.console().readLine());
         switch (choice) {
-            case 1:
-                System.out.println("Create Employee");
-                break;
-            case 2:
-                System.out.println("Update Employee");
-                break;
-            case 3:
-                System.out.println("Delete Employee");
-                break;
-            case 4:
-                System.out.println("List Employees");
-                break;
-            case 5:
-                System.out.println("Login");
-                break;
-            case 6:
-                System.out.println("Thank you for banking with us");
-                break;
-            default:
-                System.out.println("Invalid input");
-                break;
+
+
         }
     }
 }
