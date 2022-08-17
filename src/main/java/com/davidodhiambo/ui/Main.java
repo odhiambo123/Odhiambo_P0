@@ -108,30 +108,30 @@ public class Main {
                     //check if account exists:
                     if(dao.login_checking_account(email, password) && dao.login_savings_account(email, password) ){
                         System.out.println("You have Both Saving and Checking Account... Which one Would you like to login to?");
-                        System.out.println("1. Checking \n 2. Savings");
+                        System.out.println("1. Checking \n2. Savings");
 
                         int pick = Integer.parseInt(sc.nextLine());
                         switch (pick){
                             case 1 -> {
                                 dao.login_checking_account(email, password);
                                 System.out.println("You are logged in to Checking Account");
-                                CheckingAccountMenu.myOptions();
+                                CheckingAccountMenu.myOptions(email);
 
                             }
                             case 2->{
                                 dao.login_savings_account(email, password);
                                 System.out.println("You are logged in to Savings Account");
-                                SavingsAccountMenu.myOptions();
+                                SavingsAccountMenu.myOptions(email);
                             }
                         }
 
                     }else if (dao.login_checking_account(email, password)) {
                         System.out.println("You are logged in to Checking Account");
 
-                        CheckingAccountMenu.myOptions();
+                        CheckingAccountMenu.myOptions(email);
                     } else if (dao.login_savings_account(email, password)) {
                         System.out.println("You are logged in to Savings Account");
-                        SavingsAccountMenu.myOptions();
+                        SavingsAccountMenu.myOptions(email);
                     } else {
                         animate();
                         System.out.println("Login Failed Please Try Again");
@@ -152,7 +152,7 @@ public class Main {
                     animate();
                     if (dao.checkem_if_employee_exists(email, password)) {
                         System.out.println("Login Successful");
-                        EmployeeMenu.displayMenu();
+                        EmployeeMenu.displayMenu(email);
                     } else {
                         animate();
                         border();

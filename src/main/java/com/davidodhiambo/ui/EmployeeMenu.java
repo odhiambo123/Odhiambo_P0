@@ -11,7 +11,7 @@ import static com.davidodhiambo.ui.Main.border;
 
 public class EmployeeMenu {
     static BankDao dao = BankDaoFactory.getAccounts();
-    public static void displayMenu() throws SQLException {
+    public static void displayMenu(String email1) throws SQLException {
         border();
         System.out.println("Welcome Back!");
         border();
@@ -52,7 +52,7 @@ public class EmployeeMenu {
                         border();
                         System.out.println("Account pending approval...");
                         border();
-                        displayMenu();
+                        displayMenu(email1);
                     }
                     case 2 -> {
                         //savings account
@@ -72,10 +72,10 @@ public class EmployeeMenu {
                         border();
                         System.out.println("Account pending approval...");
                         border();
-                        displayMenu();
+                        displayMenu(email1);
                     }
                     case 3 -> {//back
-                        displayMenu();
+                        displayMenu(email1);
                     }
 
                 }
@@ -104,7 +104,7 @@ public class EmployeeMenu {
                         border();
                         System.out.println("Account pending approval...");
                         border();
-                        displayMenu();
+                        displayMenu(email1);
                     }
                     case 2 -> {
                         System.out.println("enter email: ");
@@ -121,10 +121,10 @@ public class EmployeeMenu {
                         border();
                         System.out.println("Account pending approval...");
                         border();
-                        displayMenu();
+                        displayMenu(email1);
                     }
                     case 3 -> {
-                        displayMenu();
+                        displayMenu(email1);
                     }
                 }
             }
@@ -147,7 +147,7 @@ public class EmployeeMenu {
                         border();
                         System.out.println("Account pending approval...");
                         border();
-                        displayMenu();
+                        displayMenu(email1);
                     }
                     case 2 -> {
                         System.out.println("enter email: ");
@@ -160,10 +160,10 @@ public class EmployeeMenu {
                         border();
                         System.out.println("Account pending approval...");
                         border();
-                        displayMenu();
+                        displayMenu(email1);
                     }
                     case 3 -> {
-                        displayMenu();
+                        displayMenu(email1);
                     }
                 }
             }
@@ -190,7 +190,7 @@ public class EmployeeMenu {
                         animate();
                         dao.approve_checking_account(email);
                         border();
-                        displayMenu();
+                        displayMenu(email1);
                     }
                     case 2 -> {
                         System.out.println("enter email: ");
@@ -199,10 +199,10 @@ public class EmployeeMenu {
                         animate();
                         dao.approve_savings_account(email);
                         border();
-                        displayMenu();
+                        displayMenu(email1);
                     }
                     case 3 -> {
-                        displayMenu();
+                        displayMenu(email1);
                     }
                 }
 
@@ -222,7 +222,7 @@ public class EmployeeMenu {
                         animate();
                         dao.reject_checking_account(email);
                         border();
-                        displayMenu();
+                        displayMenu(email1);
                     }
                     case 2 -> {
                         System.out.println("enter email: ");
@@ -231,10 +231,10 @@ public class EmployeeMenu {
                         animate();
                         dao.reject_savings_account(email);
                         border();
-                        displayMenu();
+                        displayMenu(email1);
                     }
                     case 3 -> {
-                        displayMenu();
+                        displayMenu(email1);
                     }
                 }
             }

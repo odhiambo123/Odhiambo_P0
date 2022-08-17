@@ -30,7 +30,7 @@ public class BankDaoImpl implements BankDao {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 System.out.println("Welcome " + rs.getString("fname") + " " + rs.getString("lname"));
-                EmployeeMenu.displayMenu();
+                EmployeeMenu.displayMenu(email);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -47,7 +47,7 @@ public class BankDaoImpl implements BankDao {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 System.out.println("Welcome " + rs.getString("fname") + " " + rs.getString("lname"));
-                CheckingAccountMenu.myOptions();
+                CheckingAccountMenu.myOptions(email);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

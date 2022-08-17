@@ -24,7 +24,7 @@ public class CheckingAccountMenu {
 
     }
     private static Scanner sc = new Scanner(System.in);
-    public static void myOptions() {
+    public static void myOptions(String email1) {
         border();
         System.out.println("1. View Balance");
         System.out.println("2. Deposit");
@@ -36,17 +36,17 @@ public class CheckingAccountMenu {
         int choice = Integer.parseInt(sc.nextLine());
         switch (choice) {
             case 1 -> {
-                System.out.println("Enter your email : ");
-                String email = sc.nextLine();
+                /*System.out.println("Enter your email : ");
+                String email = sc.nextLine();*/
                 animate();
                 border();
-                System.out.println("Your balance is : " + dao.get_Checking_balance(email));
+                System.out.println("Your balance is : " + dao.get_Checking_balance(email1));
                 border();
-                myOptions();
+                myOptions(email1);
             }
             case 2 -> {
-                System.out.println("Enter your email : ");
-                String email = sc.nextLine();
+                /*System.out.println("Enter your email : ");
+                String email = sc.nextLine();*/
                 System.out.println("Enter amount to deposit : ");
                 double amount = Double.parseDouble(sc.nextLine());
                 border();
@@ -54,25 +54,25 @@ public class CheckingAccountMenu {
                 //animation
                    animate();
                    border();
-                dao.deposit_Checking_account(amount, email);
-                System.out.println("\n...Thank you!.. your new balance is : " + dao.get_Checking_balance(email));
+                dao.deposit_Checking_account(amount, email1);
+                System.out.println("\n...Thank you!.. your new balance is : " + dao.get_Checking_balance(email1));
                 border();
-                myOptions();
+                myOptions(email1);
 
             }
             case 3 -> {
                 System.out.println("Enter amount to withdraw : ");
                 double amount = Double.parseDouble(sc.nextLine());
-                System.out.println("Enter your email : ");
-                String email = sc.nextLine();
+                /*System.out.println("Enter your email : ");
+                String email = sc.nextLine();*/
                 System.out.println("\n...One moment please... : ");
                 //animation
                    animate();
-                dao.withdraw_Checking_account(amount, email);
+                dao.withdraw_Checking_account(amount, email1);
                 border();
                 System.out.println("succcesfully withdrew " + amount + " from your checking account");
 
-                System.out.println("Your new balance is : " + dao.get_Checking_balance(email));
+                System.out.println("Your new balance is : " + dao.get_Checking_balance(email1));
                 border();
             }
             case 4 -> {
@@ -85,14 +85,14 @@ public class CheckingAccountMenu {
                     case 1 ->{
                         System.out.println("Enter amount to transfer : ");
                         double amount = Double.parseDouble(sc.next());
-                        System.out.println("Enter your email : ");
-                        String email = sc.next();
+                        /*System.out.println("Enter your email : ");
+                        String email = sc.next();*/
                         System.out.println("...One moment please... : ");
                         //animation
                            animate();
-                        dao.transfer_Checking_to_Savings(amount, email);
-                        System.out.println("Your Checking balance is : " + dao.get_Checking_balance(email));
-                        System.out.println("Your Savings balance is : " + dao.get_Savings_balance(email));
+                        dao.transfer_Checking_to_Savings(amount, email1);
+                        System.out.println("Your Checking balance is : " + dao.get_Checking_balance(email1));
+                        System.out.println("Your Savings balance is : " + dao.get_Savings_balance(email1));
 
                     }
                     case 2 -> {
@@ -100,16 +100,16 @@ public class CheckingAccountMenu {
                         double amount = Double.parseDouble(sc.nextLine());
                         System.out.println("Enter recipient email : ");
                         String recipientEmail = sc.nextLine();
-                        System.out.println("Enter your email : ");
-                        String yourEmail = sc.nextLine();
+                        /*System.out.println("Enter your email : ");
+                        String yourEmail = sc.nextLine();*/
                         System.out.println("...One moment please... : ");
                         //animation
                            animate();
                            //check if the recipient has a checking account
                             if(dao.check_if_checking_account_exists(recipientEmail)){
-                        dao.transfer_Checking_to_outside_Checking(amount, recipientEmail, yourEmail);
-                        System.out.println("Your Checking balance is : " + dao.get_Checking_balance(yourEmail));
-                        System.out.println("Your Savings balance is : " + dao.get_Savings_balance(yourEmail));
+                        dao.transfer_Checking_to_outside_Checking(amount, recipientEmail, email1);
+                        System.out.println("Your Checking balance is : " + dao.get_Checking_balance(email1));
+                        System.out.println("Your Savings balance is : " + dao.get_Savings_balance(email1));
                             }else{
                                 System.out.println("The recipient does not have a checking account");
                             }
@@ -120,16 +120,16 @@ public class CheckingAccountMenu {
                         double amount = Double.parseDouble(sc.nextLine());
                         System.out.println("Enter recipient email : ");
                         String recipientEmail = sc.nextLine();
-                        System.out.println("Enter your email : ");
-                        String yourEmail = sc.nextLine();
+                        /*System.out.println("Enter your email : ");
+                        String yourEmail = sc.nextLine();*/
                         System.out.println("...One moment please... : ");
                         //animation
                            animate();
                            //check if the recipient has a checking account
                             if(dao.check_if_savings_account_exists(recipientEmail)){
-                        dao.transfer_Checking_to_outside_Savings(amount, recipientEmail, yourEmail);
-                        System.out.println("Your Checking balance is : " + dao.get_Checking_balance(yourEmail));
-                        System.out.println("Your Savings balance is : " + dao.get_Savings_balance(yourEmail));
+                        dao.transfer_Checking_to_outside_Savings(amount, recipientEmail, email1);
+                        System.out.println("Your Checking balance is : " + dao.get_Checking_balance(email1));
+                        System.out.println("Your Savings balance is : " + dao.get_Savings_balance(email1));
                             }else{
                                 System.out.println("The recipient does not have a savings account");
                             }
