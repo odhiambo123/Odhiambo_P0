@@ -8,7 +8,7 @@ public class BankDaoFactory {
     private BankDaoFactory() {
     }
 
-    public static BankDao getIEmployeeDao() {
+    public static BankDao getAccounts() {
         if(bankDao == null) {
             bankDao = new BankDaoImpl();
         }
