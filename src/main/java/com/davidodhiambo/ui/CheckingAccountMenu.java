@@ -96,6 +96,7 @@ public class CheckingAccountMenu {
 
                     }
                     case 2 -> {
+                        if (dao.check_if_checking_acount_is_approved(email1)){
                         System.out.println("Enter the amout to transfer : ");
                         double amount = Double.parseDouble(sc.nextLine());
                         System.out.println("Enter recipient email : ");
@@ -113,9 +114,13 @@ public class CheckingAccountMenu {
                             }else{
                                 System.out.println("The recipient does not have a checking account");
                             }
+                    }else {
+                        System.out.println("You do not have an approved account");
+                    }
                     }
 
                     case 3 -> {
+                        if (dao.check_if_savings_acount_is_approved(email1)){
                         System.out.println("Enter the amout to transfer : ");
                         double amount = Double.parseDouble(sc.nextLine());
                         System.out.println("Enter recipient email : ");
@@ -133,6 +138,9 @@ public class CheckingAccountMenu {
                             }else{
                                 System.out.println("The recipient does not have a savings account");
                             }
+                    }else {
+                        System.out.println("You do not have an approved account");
+                    }
                     }
                 }
 

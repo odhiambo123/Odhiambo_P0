@@ -55,6 +55,8 @@ insert into savingsaccount(fname,lname,email,password,deposit,balance) values('J
 insert into checkingaccount(fname,lname,email,password,deposit,balance) values('John','Doe', 'd@mail.com','secret',1000,1000);
 insert into savingsaccount(fname,lname,email,password,deposit,balance) values('John','Doe', 'd@mail.com','secret',1000,1000);
 
+insert into employee(fname, lname, email, password) VALUES ('Xuma', 'Azike','xuma@mail.com','secret');
+
 
 
 
@@ -64,6 +66,7 @@ select * from checkingaccount;
 
 select * from savingsaccount;
 select * from employee;
+select approved from checkingaccount where email = 'df';
 
 select c.email checnkingaccount,
        s.email savingsaccount
@@ -72,5 +75,6 @@ where c.email = s.email
 group by c.email, s.email having count(*) >= 1
 order by count(*) desc
 ;
+#show database contents
 
 

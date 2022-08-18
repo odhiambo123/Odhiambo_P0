@@ -11,6 +11,17 @@ import java.util.Scanner;
 import static java.lang.System.exit;
 
 public class Main {
+    public static void copter(){
+        System.out.println("");
+    }
+    public static void banner(){
+        System.out.println("__________                         .__           /\\          __________                  __    \n" +
+                "\\______   \\  ____    ____  ______  |  |    ____  )/  ______  \\______   \\_____     ____  |  | __\n" +
+                " |     ___/_/ __ \\  /  _ \\ \\____ \\ |  |  _/ __ \\    /  ___/   |    |  _/\\__  \\   /    \\ |  |/ /\n" +
+                " |    |    \\  ___/ (  <_> )|  |_> >|  |__\\  ___/    \\___ \\    |    |   \\ / __ \\_|   |  \\|    < \n" +
+                " |____|     \\___  > \\____/ |   __/ |____/ \\___  >  /____  >   |______  /(____  /|___|  /|__|_ \\\n" +
+                "                \\/         |__|               \\/        \\/           \\/      \\/      \\/      \\/");
+    }
     public static void border() {
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*\n*----------------------------------------*");
     }
@@ -24,7 +35,7 @@ public class Main {
     }
     public static void animate(){
         for (int i = 0; i < 3; i++) {
-            System.out.print("--->");
+            System.out.print(" > ");
             try {
                 Thread.sleep(900);
             } catch (InterruptedException e) {
@@ -42,6 +53,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Welcome to your Bank of the People");
+
+        copter(); banner();
         border();
         boolean flag = true;
         while (flag) {
@@ -162,8 +175,8 @@ public class Main {
                     }
 
                 }
-                case 6 -> {
-                    System.out.println("Thank you for using our services");
+                case 5 -> {
+                    System.out.println("Thank you for Banking with People's Bank");
                     flag = false;
                     exit(0);
                 }

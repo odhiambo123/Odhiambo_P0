@@ -5,9 +5,6 @@ import com.davidodhiambo.ui.CheckingAccountMenu;
 import com.davidodhiambo.ui.EmployeeMenu;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 import static com.davidodhiambo.service.MyConnectionJDBC.connection;
 
@@ -508,6 +505,41 @@ public class BankDaoImpl implements BankDao {
         }
     }
 
+    @Override
+    public boolean check_if_savings_acount_is_approved(String email) {
+        String sql = "SELECT approved FROM savingsaccount WHERE email = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean("approved");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean check_if_checking_acount_is_approved(String email) {
+        String sql = "SELECT approved FROM checkingaccount WHERE email = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt("approved") == 1) {
+                    System.out.println("The account is approved");
+                } else {
+                    System.out.println("The account is not approved yet");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 
 
     public static void add_Employee(String fname, String lname, String email, String password) {

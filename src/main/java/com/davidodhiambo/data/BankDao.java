@@ -59,5 +59,8 @@ public interface BankDao {
 
     void reject_savings_account(String email);
 
+    boolean check_if_savings_acount_is_approved(String email);
 
+
+    boolean check_if_checking_acount_is_approved(String email);
 }

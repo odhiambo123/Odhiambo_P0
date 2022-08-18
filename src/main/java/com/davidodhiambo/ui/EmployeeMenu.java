@@ -5,11 +5,13 @@ import com.davidodhiambo.data.BankDaoFactory;
 import com.davidodhiambo.service.MyConnectionJDBC;
 
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import static com.davidodhiambo.ui.Main.animate;
 import static com.davidodhiambo.ui.Main.border;
 
 public class EmployeeMenu {
+    static Scanner sc = new Scanner(System.in);
     static BankDao dao = BankDaoFactory.getAccounts();
     public static void displayMenu(String email1) throws SQLException {
         border();
@@ -24,7 +26,7 @@ public class EmployeeMenu {
         System.out.println("6. Reject Account");
         System.out.println("7. Eixt");
         System.out.println("Enter your choice: ");
-        int choice3 = Integer.parseInt(System.console().readLine());
+        int choice3 = Integer.parseInt(sc.nextLine());
         switch (choice3) {
             case 1 -> {
 //create account
@@ -32,20 +34,20 @@ public class EmployeeMenu {
                 System.out.println("1. Checking Account");
                 System.out.println("2. Savings Account");
                 System.out.println("3. Back");
-                int choice4 = Integer.parseInt(System.console().readLine());
+                int choice4 = Integer.parseInt(sc.nextLine());
                 switch (choice4) {
                     case 1 -> {
                         //checking account
                         System.out.println("enter first name: ");
-                        String fname = System.console().readLine();
+                        String fname = sc.nextLine();
                         System.out.println("enter last name: ");
-                        String lname = System.console().readLine();
+                        String lname = sc.nextLine();
                         System.out.println("enter email: ");
-                        String email = System.console().readLine();
+                        String email = sc.nextLine();
                         System.out.println("enter password: ");
-                        String password = System.console().readLine();
+                        String password = sc.nextLine();
                         System.out.println("Enter amount for initial deposit: ");
-                        double amount = Double.parseDouble(System.console().readLine());
+                        double amount = Double.parseDouble(sc.nextLine());
                         System.out.println("Thank you... please wait...");
                         animate();
                         dao.add_new_checking_account(fname, lname, email, password, amount, 0.0);
@@ -57,15 +59,15 @@ public class EmployeeMenu {
                     case 2 -> {
                         //savings account
                         System.out.println("enter first name: ");
-                        String fname = System.console().readLine();
+                        String fname = sc.nextLine();
                         System.out.println("enter last name: ");
-                        String lname = System.console().readLine();
+                        String lname = sc.nextLine();
                         System.out.println("enter email: ");
-                        String email = System.console().readLine();
+                        String email = sc.nextLine();
                         System.out.println("enter password: ");
-                        String password = System.console().readLine();
+                        String password = sc.nextLine();
                         System.out.println("Enter amount for initial deposit: ");
-                        double amount = Double.parseDouble(System.console().readLine());
+                        double amount = Double.parseDouble(sc.nextLine());
                         System.out.println("Thank you... please wait...");
                         animate();
                         dao.add_new_savings_account(fname, lname, email, password, amount, 0.0);
@@ -87,17 +89,17 @@ public class EmployeeMenu {
                 System.out.println("1. Checking Account");
                 System.out.println("2. Savings Account");
                 System.out.println("3. Back");
-                int choice5 = Integer.parseInt(System.console().readLine());
+                int choice5 = Integer.parseInt(sc.nextLine());
                 switch (choice5) {
                     case 1 -> {
                         System.out.println("enter email: ");
-                        String email = System.console().readLine();
+                        String email = sc.nextLine();
                         System.out.println("enter password: ");
-                        String password = System.console().readLine();
+                        String password = sc.nextLine();
                         System.out.println("update email: ");
-                        String new_email = System.console().readLine();
+                        String new_email = sc.nextLine();
                         System.out.println("update password: ");
-                        String new_password = System.console().readLine();
+                        String new_password = sc.nextLine();
                         System.out.println("Thank you... please wait...");
                         animate();
                         dao.update_checking_account_email_and_password(email, password, new_email, new_password);
@@ -108,13 +110,13 @@ public class EmployeeMenu {
                     }
                     case 2 -> {
                         System.out.println("enter email: ");
-                        String email = System.console().readLine();
+                        String email = sc.nextLine();
                         System.out.println("enter password: ");
-                        String password = System.console().readLine();
+                        String password = sc.nextLine();
                         System.out.println("update email: ");
-                        String new_email = System.console().readLine();
+                        String new_email = sc.nextLine();
                         System.out.println("update password: ");
-                        String new_password = System.console().readLine();
+                        String new_password = sc.nextLine();
                         System.out.println("Thank you... please wait...");
                         animate();
                         dao.update_savings_account_email_and_password(email, password, new_email, new_password);
@@ -134,13 +136,13 @@ public class EmployeeMenu {
                 System.out.println("1. Checking Account");
                 System.out.println("2. Savings Account");
                 System.out.println("3. Back");
-                int choice6 = Integer.parseInt(System.console().readLine());
+                int choice6 = Integer.parseInt(sc.nextLine());
                 switch (choice6) {
                     case 1 -> {
                         System.out.println("enter email: ");
-                        String email = System.console().readLine();
+                        String email = sc.nextLine();
                         System.out.println("enter password: ");
-                        String password = System.console().readLine();
+                        String password = sc.nextLine();
                         System.out.println("Thank you... please wait...");
                         animate();
                         dao.delete_checking_account(email, password);
@@ -151,9 +153,9 @@ public class EmployeeMenu {
                     }
                     case 2 -> {
                         System.out.println("enter email: ");
-                        String email = System.console().readLine();
+                        String email = sc.nextLine();
                         System.out.println("enter password: ");
-                        String password = System.console().readLine();
+                        String password = sc.nextLine();
                         System.out.println("Thank you... please wait...");
                         animate();
                         dao.delete_savings_account(email, password);
@@ -172,6 +174,7 @@ public class EmployeeMenu {
 //list employees
                 System.out.println("List of employees: ");
                 dao.list_All_Employees();
+                displayMenu(email1);
             }
 
 
@@ -181,11 +184,11 @@ public class EmployeeMenu {
                 System.out.println("1. Checking Account");
                 System.out.println("2. Savings Account");
                 System.out.println("3. Back");
-                int choice7 = Integer.parseInt(System.console().readLine());
+                int choice7 = Integer.parseInt(sc.nextLine());
                 switch (choice7) {
                     case 1 -> {
                         System.out.println("enter email: ");
-                        String email = System.console().readLine();
+                        String email = sc.nextLine();
                         System.out.println("Thank you... please wait...");
                         animate();
                         dao.approve_checking_account(email);
@@ -194,7 +197,7 @@ public class EmployeeMenu {
                     }
                     case 2 -> {
                         System.out.println("enter email: ");
-                        String email = System.console().readLine();
+                        String email = sc.nextLine();
                         System.out.println("Thank you... please wait...");
                         animate();
                         dao.approve_savings_account(email);
@@ -213,11 +216,11 @@ public class EmployeeMenu {
                 System.out.println("1. Checking Account");
                 System.out.println("2. Savings Account");
                 System.out.println("3. Back");
-                int choice8 = Integer.parseInt(System.console().readLine());
+                int choice8 = Integer.parseInt(sc.nextLine());
                 switch (choice8) {
                     case 1 -> {
                         System.out.println("enter email: ");
-                        String email = System.console().readLine();
+                        String email = sc.nextLine();
                         System.out.println("Thank you... please wait...");
                         animate();
                         dao.reject_checking_account(email);
@@ -226,7 +229,7 @@ public class EmployeeMenu {
                     }
                     case 2 -> {
                         System.out.println("enter email: ");
-                        String email = System.console().readLine();
+                        String email = sc.nextLine();
                         System.out.println("Thank you... please wait...");
                         animate();
                         dao.reject_savings_account(email);
@@ -237,6 +240,9 @@ public class EmployeeMenu {
                         displayMenu(email1);
                     }
                 }
+            }
+            case 7 -> {
+                System.exit(0);
             }
         }
     }
