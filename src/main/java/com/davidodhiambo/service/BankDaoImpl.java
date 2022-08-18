@@ -10,7 +10,7 @@ import static com.davidodhiambo.service.MyConnectionJDBC.connection;
 
 public class BankDaoImpl implements BankDao {
 
-    Connection conn;
+    static Connection conn;
 
     public BankDaoImpl() {
         conn = MyConnectionJDBC.getConnection();
@@ -21,7 +21,7 @@ public class BankDaoImpl implements BankDao {
     public boolean checkem_if_employee_exists(String email, String password) {
         String sql = "SELECT * FROM employee WHERE email = ? AND password = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -36,9 +36,9 @@ public class BankDaoImpl implements BankDao {
     }
 
     public static void check_if_checking_account_exists(String email, String password) {
-        String sql = "SELECT * FROM checkingaccount WHERE email = ? AND password = ?";
+        String sql_select_all_from_checking = "SELECT * FROM checkingaccount WHERE email = ? AND password = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql_select_all_from_checking);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -51,11 +51,11 @@ public class BankDaoImpl implements BankDao {
         }
     }
     public void add_new_checking_account(String fname, String lname, String email, String password, Double deposit, Double balance) {
-        String sql = "INSERT INTO checkingaccount (fname,lname, email, password,deposit,balance) VALUES (?, ?, ?, ?,?,?)";
-        String sql2 = "UPDATE checkingaccount SET balance = (checkingaccount.deposit + checkingaccount.balance) WHERE email = ?";
-        String sql3 = "UPDATE checkingaccount SET deposit = 0 WHERE email = ?";
+        String sql_insert = "INSERT INTO checkingaccount (fname,lname, email, password,deposit,balance) VALUES (?, ?, ?, ?,?,?)";
+        String sql_update_checking_balance = "UPDATE checkingaccount SET balance = (checkingaccount.deposit + checkingaccount.balance) WHERE email = ?";
+        String sql_update_checking_deposit = "UPDATE checkingaccount SET deposit = 0 WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql_insert);
             ps.setString(1, fname);
             ps.setString(2, lname);
             ps.setString(3, email);
@@ -63,10 +63,10 @@ public class BankDaoImpl implements BankDao {
             ps.setDouble(5, deposit);
             ps.setDouble(6, balance);
             ps.executeUpdate();
-            PreparedStatement ps2 = connection.prepareStatement(sql2);
+            PreparedStatement ps2 = conn.prepareStatement(sql_update_checking_balance);
             ps2.setString(1, email);
             ps2.executeUpdate();
-            PreparedStatement ps3 = connection.prepareStatement(sql3);
+            PreparedStatement ps3 = conn.prepareStatement(sql_update_checking_deposit);
             ps3.setString(1, email);
             ps3.executeUpdate();
 
@@ -82,7 +82,7 @@ public class BankDaoImpl implements BankDao {
         String sql2 = "UPDATE savingsaccount SET balance = (savingsaccount.deposit + savingsaccount.balance) WHERE email = ?";
         String sql3 = "UPDATE savingsaccount SET deposit = 0 WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, fname);
             ps.setString(2, lname);
             ps.setString(3, email);
@@ -90,10 +90,10 @@ public class BankDaoImpl implements BankDao {
             ps.setDouble(5, deposit);
             ps.setDouble(6, balance);
             ps.executeUpdate();
-            PreparedStatement ps2 = connection.prepareStatement(sql2);
+            PreparedStatement ps2 = conn.prepareStatement(sql2);
             ps2.setString(1, email);
             ps2.executeUpdate();
-            PreparedStatement ps3 = connection.prepareStatement(sql3);
+            PreparedStatement ps3 = conn.prepareStatement(sql3);
             ps3.setString(1, email);
             ps3.executeUpdate();
 
