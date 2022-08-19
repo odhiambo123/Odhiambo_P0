@@ -15,9 +15,9 @@ public interface BankDao {
 
     void transfer_Checking_to_outside_Savings(double amount, String recipientEmail, String yourEmail);
 
-    String get_Checking_balance(String yourEmail);
+    double get_Checking_balance(String yourEmail);
 
-    String get_Savings_balance(String email);
+    double get_Savings_balance(String email);
 
     void deposit_Savings_account(double amount, String email);
 
@@ -39,7 +39,7 @@ public interface BankDao {
 
     boolean login_savings_account(String email, String password);
 
-    boolean checkem_if_employee_exists(String email, String password);
+    boolean check_if_employee_exists(String email, String password);
 
     void update_checking_account_email_and_password(String email, String password, String new_email, String new_password);
 
@@ -63,4 +63,6 @@ public interface BankDao {
 
 
     boolean check_if_checking_acount_is_approved(String email);
+
+    void view_database_logs();
 }

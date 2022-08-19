@@ -6,7 +6,7 @@ import com.davidodhiambo.ui.EmployeeMenu;
 
 import java.sql.*;
 
-import static com.davidodhiambo.service.MyConnectionJDBC.connection;
+//import static com.davidodhiambo.service.MyConnectionJDBC.connection;
 
 public class BankDaoImpl implements BankDao {
 
@@ -17,11 +17,10 @@ public class BankDaoImpl implements BankDao {
 
     }
 
-
-    public boolean checkem_if_employee_exists(String email, String password) {
-        String sql = "SELECT * FROM employee WHERE email = ? AND password = ?";
+    public boolean check_if_employee_exists(String email, String password) {
+        String sql_check_if_exists = "SELECT * FROM employee WHERE email = ? AND password = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql_check_if_exists);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -30,7 +29,7 @@ public class BankDaoImpl implements BankDao {
                 EmployeeMenu.displayMenu(email);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Whoops! Make sure Employee exists with that name..");;
         }
         return false;
     }
@@ -106,25 +105,25 @@ public class BankDaoImpl implements BankDao {
         System.out.println("==============================================================");
     }
 
-    public String get_Checking_balance(String email) {
+    public double get_Checking_balance(String email) {
         String sql = "SELECT balance FROM checkingaccount WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getString("balance");
+                return rs.getDouble("balance");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return 0.0;
     }
 
     public void deposit_Checking_account(double amount, String email) {
         String sql = "UPDATE checkingaccount SET balance = (checkingaccount.balance + ?) Where email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setDouble(1, amount);
             ps.setString(2, email);
             ps.executeUpdate();
@@ -137,7 +136,7 @@ public class BankDaoImpl implements BankDao {
     public void withdraw_Checking_account(double amount, String email) {
         String sql = "UPDATE checkingaccount SET balance = (checkingaccount.balance - ?) Where email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setDouble(1, amount);
             ps.setString(2, email);
             ps.executeUpdate();
@@ -151,11 +150,11 @@ public class BankDaoImpl implements BankDao {
         String sql = "UPDATE checkingaccount SET balance = (checkingaccount.balance - ?) Where email = ?";
         String sql2 = "UPDATE savingsaccount SET balance = (savingsaccount.balance + ?) Where email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setDouble(1, amount);
             ps.setString(2, email);
             ps.executeUpdate();
-            PreparedStatement ps2= connection.prepareStatement(sql2);
+            PreparedStatement ps2= conn.prepareStatement(sql2);
             ps2.setDouble(1, amount);
             ps2.setString(2, email);
             ps2.executeUpdate();
@@ -165,19 +164,19 @@ public class BankDaoImpl implements BankDao {
         }
     }
 
-    public String get_Savings_balance(String email) {
+    public double get_Savings_balance(String email) {
         String sql = "SELECT balance FROM savingsaccount WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getString("balance");
+                return rs.getDouble("balance");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return 0.0;
     }
 
 
@@ -185,11 +184,11 @@ public class BankDaoImpl implements BankDao {
         String sql = "UPDATE checkingaccount SET balance = (checkingaccount.balance - ?) Where email = ?";
         String sql2 = "UPDATE checkingaccount SET balance = (checkingaccount.balance + ?) Where email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setDouble(1, amount);
             ps.setString(2, yourEmail);
             ps.executeUpdate();
-            PreparedStatement ps2= connection.prepareStatement(sql2);
+            PreparedStatement ps2= conn.prepareStatement(sql2);
             ps2.setDouble(1, amount);
             ps2.setString(2, recipientEmail);
             ps2.executeUpdate();
@@ -202,7 +201,7 @@ public class BankDaoImpl implements BankDao {
     public boolean check_if_checking_account_exists(String recipientEmail) {
         String sql = "SELECT email FROM checkingaccount WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, recipientEmail);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -217,7 +216,7 @@ public class BankDaoImpl implements BankDao {
     public boolean check_if_savings_account_exists(String recipientEmail) {
         String sql = "SELECT email FROM savingsaccount WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, recipientEmail);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -233,11 +232,11 @@ public class BankDaoImpl implements BankDao {
         String sql = "UPDATE checkingaccount SET balance = (checkingaccount.balance - ?) Where email = ?";
         String sql2 = "UPDATE savingsaccount SET balance = (savingsaccount.balance + ?) Where email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setDouble(1, amount);
             ps.setString(2, yourEmail);
             ps.executeUpdate();
-            PreparedStatement ps2= connection.prepareStatement(sql2);
+            PreparedStatement ps2= conn.prepareStatement(sql2);
             ps2.setDouble(1, amount);
             ps2.setString(2, recipientEmail);
             ps2.executeUpdate();
@@ -251,13 +250,13 @@ public class BankDaoImpl implements BankDao {
         //check if the account exists
         String sql = "SELECT email FROM checkingaccount WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 //check if the password is correct
                 String sql2 = "SELECT password FROM checkingaccount WHERE email = ?";
-                PreparedStatement ps2 = connection.prepareStatement(sql2);
+                PreparedStatement ps2 = conn.prepareStatement(sql2);
                 ps2.setString(1, email);
                 ResultSet rs2 = ps2.executeQuery();
                 if (rs2.next()) {
@@ -276,13 +275,13 @@ public class BankDaoImpl implements BankDao {
         //check if the account exists
         String sql = "SELECT email FROM savingsaccount WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 //check if the password is correct
                 String sql2 = "SELECT password FROM savingsaccount WHERE email = ?";
-                PreparedStatement ps2 = connection.prepareStatement(sql2);
+                PreparedStatement ps2 = conn.prepareStatement(sql2);
                 ps2.setString(1, email);
                 ResultSet rs2 = ps2.executeQuery();
                 if (rs2.next()) {
@@ -300,7 +299,7 @@ public class BankDaoImpl implements BankDao {
     public void deposit_Savings_account(double amount, String email) {
         String sql = "UPDATE savingsaccount SET balance = (savingsaccount.balance + ?) Where email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setDouble(1, amount);
             ps.setString(2, email);
             ps.executeUpdate();
@@ -313,10 +312,15 @@ public class BankDaoImpl implements BankDao {
     public void withdraw_Savings_account(double amount, String email) {
         String sql = "UPDATE savingsaccount SET balance = (savingsaccount.balance - ?) Where email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setDouble(1, amount);
             ps.setString(2, email);
-            ps.executeUpdate();
+            if (get_Savings_balance(email) < amount) {
+                System.out.println("\nYou do not have enough money in your savings account");
+            } else {
+                ps.executeUpdate();
+            }
+            //ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
 
@@ -328,11 +332,11 @@ public class BankDaoImpl implements BankDao {
         String sql = "UPDATE savingsaccount SET balance = (savingsaccount.balance - ?) Where email = ?";
         String sql2 = "UPDATE checkingaccount SET balance = (checkingaccount.balance + ?) Where email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setDouble(1, amount);
             ps.setString(2, email);
             ps.executeUpdate();
-            PreparedStatement ps2= connection.prepareStatement(sql2);
+            PreparedStatement ps2= conn.prepareStatement(sql2);
             ps2.setDouble(1, amount);
             ps2.setString(2, email);
             ps2.executeUpdate();
@@ -345,7 +349,7 @@ public class BankDaoImpl implements BankDao {
     public boolean check_checking_account(String email) {
         String sql = "SELECT email FROM checkingaccount WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -361,11 +365,11 @@ public class BankDaoImpl implements BankDao {
         String sql = "UPDATE savingsaccount SET balance = (savingsaccount.balance - ?) Where email = ?";
         String sql2 = "UPDATE checkingaccount SET balance = (checkingaccount.balance + ?) Where email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setDouble(1, amount);
             ps.setString(2, senders_email);
             ps.executeUpdate();
-            PreparedStatement ps2= connection.prepareStatement(sql2);
+            PreparedStatement ps2= conn.prepareStatement(sql2);
             ps2.setDouble(1, amount);
             ps2.setString(2, receivers_email);
             ps2.executeUpdate();
@@ -379,11 +383,11 @@ public class BankDaoImpl implements BankDao {
         String sql = "UPDATE savingsaccount SET balance = (savingsaccount.balance - ?) Where email = ?";
         String sql2 = "UPDATE savingsaccount SET balance = (savingsaccount.balance + ?) Where email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setDouble(1, amount);
             ps.setString(2, senders_email);
             ps.executeUpdate();
-            PreparedStatement ps2= connection.prepareStatement(sql2);
+            PreparedStatement ps2= conn.prepareStatement(sql2);
             ps2.setDouble(1, amount);
             ps2.setString(2, receivers_email);
             ps2.executeUpdate();
@@ -396,7 +400,7 @@ public class BankDaoImpl implements BankDao {
     public void update_checking_account_email_and_password(String email, String password, String new_email, String new_password) {
         String sql = "UPDATE checkingaccount SET email = ?, password = ? WHERE email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setString(1, new_email);
             ps.setString(2, new_password);
             ps.setString(3, email);
@@ -410,7 +414,7 @@ public class BankDaoImpl implements BankDao {
     public void update_savings_account_email_and_password(String email, String password, String new_email, String new_password) {
         String sql = "UPDATE savingsaccount SET email = ?, password = ? WHERE email = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setString(1, new_email);
             ps.setString(2, new_password);
             ps.setString(3, email);
@@ -424,7 +428,7 @@ public class BankDaoImpl implements BankDao {
     public void delete_checking_account(String email, String password) {
         String sql = "DELETE FROM checkingaccount WHERE email = ? AND password = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
             ps.executeUpdate();
@@ -437,7 +441,7 @@ public class BankDaoImpl implements BankDao {
     public void delete_savings_account(String email, String password) {
         String sql = "DELETE FROM savingsaccount WHERE email = ? AND password = ?";
         try {
-            PreparedStatement ps= connection.prepareStatement(sql);
+            PreparedStatement ps= conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
             ps.executeUpdate();
@@ -448,9 +452,9 @@ public class BankDaoImpl implements BankDao {
     }
 
     public void list_All_Employees() {
-        String sql = "SELECT * FROM employee";
+        String sql = "CALL list_all_my_employees()";//"SELECT * FROM employee";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 System.out.println(rs.getString("fname") + " " + rs.getString("lname"));
@@ -464,9 +468,10 @@ public class BankDaoImpl implements BankDao {
     public void approve_checking_account(String email) {
         String sql = "UPDATE checkingaccount SET approved = 1 WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.executeUpdate();
+            System.out.println("Congratulations!! Account approved \n");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -475,9 +480,10 @@ public class BankDaoImpl implements BankDao {
     public void approve_savings_account(String email) {
         String sql = "UPDATE savingsaccount SET approved = 1 WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.executeUpdate();
+            System.out.println("Congratulations!! Account approved \n");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -486,7 +492,7 @@ public class BankDaoImpl implements BankDao {
     public void reject_checking_account(String email) {
         String sql = "UPDATE checkingaccount SET approved = 0 WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -497,7 +503,7 @@ public class BankDaoImpl implements BankDao {
     public void reject_savings_account(String email) {
         String sql = "UPDATE savingsaccount SET approved = 0 WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -509,7 +515,7 @@ public class BankDaoImpl implements BankDao {
     public boolean check_if_savings_acount_is_approved(String email) {
         String sql = "SELECT approved FROM savingsaccount WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -525,7 +531,7 @@ public class BankDaoImpl implements BankDao {
     public boolean check_if_checking_acount_is_approved(String email) {
         String sql = "SELECT approved FROM checkingaccount WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -541,11 +547,25 @@ public class BankDaoImpl implements BankDao {
         return false;
     }
 
+    @Override
+    public void view_database_logs() {
+        String sql = "SELECT * FROM mysql.general_log;";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println(rs.getString("log"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public static void add_Employee(String fname, String lname, String email, String password) {
         String sql = "INSERT INTO employee (fname, lname, email, password) VALUES (?, ?, ?, ?)";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, fname);
             ps.setString(2, lname);
             ps.setString(3, email);
@@ -559,18 +579,18 @@ public class BankDaoImpl implements BankDao {
     public static void delete_Employee(String email) {
         String sql = "DELETE FROM employee WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Whoops!, No employee matches the data entered!!");;
         }
     }
 
     public static void update_Employee(String email, String fname, String lname, String password) {
         String sql = "UPDATE employee SET fname = ?, lname = ?, password = ? WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, fname);
             ps.setString(2, lname);
             ps.setString(3, password);
@@ -584,14 +604,14 @@ public class BankDaoImpl implements BankDao {
     public static boolean check_if_checking_account_is_approved(String email) {
         String sql = "SELECT approved FROM checkingaccount WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 return rs.getInt("approved") != 0;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Whoops please we didn't find an  approved account with those credentials in the system!");
         }
         return false;
     }

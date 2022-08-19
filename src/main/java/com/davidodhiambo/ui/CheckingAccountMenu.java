@@ -49,6 +49,10 @@ public class CheckingAccountMenu {
                 String email = sc.nextLine();*/
                 System.out.println("Enter amount to deposit : ");
                 double amount = Double.parseDouble(sc.nextLine());
+                if (amount < 0) {
+                    System.out.println("Whoops!! You Entered a negative amount. Please try again.");
+                    myOptions(email1);
+                }
                 border();
                 System.out.println("\n...One moment please... : ");
                 //animation
@@ -63,8 +67,15 @@ public class CheckingAccountMenu {
             case 3 -> {
                 System.out.println("Enter amount to withdraw : ");
                 double amount = Double.parseDouble(sc.nextLine());
-                /*System.out.println("Enter your email : ");
-                String email = sc.nextLine();*/
+                double balance = dao.get_Checking_balance(email1);
+                if (amount < 0) {
+                    System.out.println("Whoops!! You Entered a negative amount. Please try again.");
+                    myOptions(email1);
+                } else if ( amount > balance) {
+                    System.out.println("Whoops!! You do not have enough balance to withdraw. Please try again.");
+                    myOptions(email1);
+
+                }
                 System.out.println("\n...One moment please... : ");
                 //animation
                    animate();
@@ -74,6 +85,7 @@ public class CheckingAccountMenu {
 
                 System.out.println("Your new balance is : " + dao.get_Checking_balance(email1));
                 border();
+                myOptions(email1);
             }
             case 4 -> {
                 System.out.println("Chose an account to transfer to : ");
@@ -85,8 +97,13 @@ public class CheckingAccountMenu {
                     case 1 ->{
                         System.out.println("Enter amount to transfer : ");
                         double amount = Double.parseDouble(sc.next());
-                        /*System.out.println("Enter your email : ");
-                        String email = sc.next();*/
+                        if (amount < 0) {
+                            System.out.println("Whoops!! You Entered a negative amount. Please try again.");
+                            myOptions(email1);
+                        } else if ( amount > dao.get_Checking_balance(email1)) {
+                            System.out.println("Whoops!! You do not have enough balance to transfer. Please try again.");
+                            myOptions(email1);
+                        }
                         System.out.println("...One moment please... : ");
                         //animation
                            animate();
@@ -101,8 +118,13 @@ public class CheckingAccountMenu {
                         double amount = Double.parseDouble(sc.nextLine());
                         System.out.println("Enter recipient email : ");
                         String recipientEmail = sc.nextLine();
-                        /*System.out.println("Enter your email : ");
-                        String yourEmail = sc.nextLine();*/
+                        if (amount < 0) {
+                            System.out.println("Whoops!! You Entered a negative amount. Please try again.");
+                            myOptions(email1);
+                        } else if ( amount > dao.get_Checking_balance(email1)) {
+                            System.out.println("Whoops!! You do not have enough balance to transfer. Please try again.");
+                            myOptions(email1);
+                        }
                         System.out.println("...One moment please... : ");
                         //animation
                            animate();
@@ -121,12 +143,17 @@ public class CheckingAccountMenu {
 
                     case 3 -> {
                         if (dao.check_if_savings_acount_is_approved(email1)){
-                        System.out.println("Enter the amout to transfer : ");
+                        System.out.println("Enter the amout you want to transfer : ");
                         double amount = Double.parseDouble(sc.nextLine());
                         System.out.println("Enter recipient email : ");
                         String recipientEmail = sc.nextLine();
-                        /*System.out.println("Enter your email : ");
-                        String yourEmail = sc.nextLine();*/
+                        if (amount < 0) {
+                            System.out.println("Whoops!! You Entered a negative amount. Please try again.");
+                            myOptions(email1);
+                        } else if ( amount > dao.get_Checking_balance(email1)) {
+                            System.out.println("Whoops!! You do not have enough balance to transfer. Please try again.");
+                            myOptions(email1);
+                        }
                         System.out.println("...One moment please... : ");
                         //animation
                            animate();

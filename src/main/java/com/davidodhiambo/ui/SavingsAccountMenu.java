@@ -41,10 +41,8 @@ public class SavingsAccountMenu {
         int choice = Integer.parseInt(sc.nextLine());
         switch (choice) {
             case 1 -> {
-                System.out.println("Enter your email : ");
-                String email = sc.nextLine();
                 animate();
-                System.out.println("Your balance is : " + dao.get_Savings_balance(email));
+                System.out.println("Your balance is : " + dao.get_Savings_balance(email1));
                 border();
                 myOptions(email1);
             }
@@ -52,32 +50,34 @@ public class SavingsAccountMenu {
 
                 System.out.println("Enter amount to deposit : ");
                 double amount = Double.parseDouble(sc.nextLine());
-                border();
-                System.out.println("\n...One moment please... : ");
-                //animation
-                animate();
-                dao.deposit_Savings_account(amount, email1);
-                border();
-                System.out.println("\n...Thank you!.. your new balance is : " + dao.get_Savings_balance(email1));
-                border();
-                myOptions(email1);
-
+                if (amount > 0) {
+                    animate();
+                    dao.deposit_Savings_account(amount, email1);
+                    System.out.println("You have deposited " + amount + " to your account, new balance is " + dao.get_Savings_balance(email1));
+                    border();
+                    myOptions(email1);
+                } else {
+                    System.out.println("Invalid amount");
+                    border();
+                    myOptions(email1);
+                }
 
             }
             case 3 -> {
                 System.out.println("Enter amount to withdraw : ");
                 double amount = Double.parseDouble(sc.nextLine());
-                /*System.out.println("Enter your email : ");
-                String email = sc.nextLine();*/
-                border();
-                System.out.println("\n...One moment please... : ");
-                //animation
-                animate();
-                dao.withdraw_Savings_account(amount, email1);
-                border();
-                System.out.println("\n...Thank you!.. your new balance is : " + dao.get_Savings_balance(email1));
-                border();
-                myOptions(email1);
+                if (amount > 0) {
+                    animate();
+                    dao.withdraw_Savings_account(amount, email1);
+                    System.out.println("You have withdrawn " + amount + " from your account, new balance is " + dao.get_Savings_balance(email1));
+                    border();
+                    myOptions(email1);
+                } else {
+                    System.out.println("Invalid amount");
+                    border();
+                    myOptions(email1);
+                }
+
             }
             case 4 -> {
                 border();
@@ -92,27 +92,26 @@ public class SavingsAccountMenu {
                     case 1 -> {
                         System.out.println("Enter amount to transfer : ");
                         double amount = Double.parseDouble(sc.nextLine());
-                        System.out.println("Enter your email : ");
-                        String email = sc.nextLine();
+
                         border();
                         System.out.println("\n...One moment please... : ");
                         //check if the checking account exists
-                        if (dao.check_checking_account(email)) {
+                        if (dao.check_checking_account(email1) && amount > 0) {
                             //animation
                             animate();
-                            dao.transfer_Savings_to_Checking(amount, email);
-                            System.out.println("\n...Thank you!.. your new balance is : " + dao.get_Savings_balance(email));
+                            dao.transfer_Savings_to_Checking(amount, email1);
+                            System.out.println("\n...Thank you!.. your new balance is : " + dao.get_Savings_balance(email1));
                             //animation
                             animate();
                             System.out.println("Your balance is : ");
-                            dao.transfer_Savings_to_Checking(amount, email);
+                            dao.transfer_Savings_to_Checking(amount, email1);
                             border();
-                            System.out.println("\n...Thank you!.. your new balance is : " + dao.get_Savings_balance(email));
+                            System.out.println("\n...Thank you!.. your new balance is : " + dao.get_Savings_balance(email1));
                             border();
                             myOptions(email1);
                         }
                         else {
-                            System.out.println("\n...Sorry!.. your checking account does not exist");
+                            System.out.println("\n...Sorry!.. Either your checking account does not exist or you have entered an invalid amount");
                             myOptions(email1);
                         }
 
@@ -121,8 +120,6 @@ public class SavingsAccountMenu {
                     case 2 -> {
                         System.out.println("How much do you want to transfer : ");
                         double amount = Double.parseDouble(sc.nextLine());
-                        /*System.out.println("Enter your email : ");
-                        String senders_email = sc.nextLine();*/
                         System.out.println("Enter the receiver's email : ");
                         String receivers_email = sc.nextLine();
                         border();
@@ -130,7 +127,7 @@ public class SavingsAccountMenu {
                         //animation
                         animate();
                         //check if the recipients checking account exists
-                        if (dao.check_checking_account(receivers_email)){
+                        if (dao.check_checking_account(receivers_email) && amount > 0) {
                             animate();
                             border();
                             dao.transfer_Savings_to_outside_Checking(amount, email1, receivers_email);
@@ -139,7 +136,7 @@ public class SavingsAccountMenu {
                             myOptions(email1);
                         }
                         else {
-                            System.out.println("\n...Sorry!.. That checking account does not exist");
+                            System.out.println("\n...Sorry!.. That checking account does not exist or you have entered an invalid amount");
                             myOptions(email1);
                         }
 
@@ -158,7 +155,7 @@ public class SavingsAccountMenu {
                         //animation
                         animate();
                         //check if the recipients savings account exists
-                        if (dao.check_if_savings_account_exists(receivers_email)){
+                        if (dao.check_if_savings_account_exists(receivers_email) && amount > 0 && (amount <= dao.get_Savings_balance(email1))) {
                             animate();
                             dao.transfer_Savings_to_outside_Savings(amount, email1, receivers_email);
                             border();

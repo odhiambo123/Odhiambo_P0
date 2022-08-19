@@ -1,4 +1,5 @@
-#
+
+#cinfig file
 src/main/java/com/davidodhiambo/service/config.properties
 # Compiled class file
 *.class

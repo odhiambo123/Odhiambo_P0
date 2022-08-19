@@ -25,6 +25,7 @@ public class EmployeeMenu {
         System.out.println("5. Approve Account");
         System.out.println("6. Reject Account");
         System.out.println("7. Eixt");
+        System.out.println("8. View Logs");
         System.out.println("Enter your choice: ");
         int choice3 = Integer.parseInt(sc.nextLine());
         switch (choice3) {
@@ -189,10 +190,9 @@ public class EmployeeMenu {
                     case 1 -> {
                         System.out.println("enter email: ");
                         String email = sc.nextLine();
-                        System.out.println("Thank you... please wait...");
+                        System.out.println("Thank you... please wait...\n ");
                         animate();
                         dao.approve_checking_account(email);
-                        border();
                         displayMenu(email1);
                     }
                     case 2 -> {
@@ -244,6 +244,20 @@ public class EmployeeMenu {
             case 7 -> {
                 System.exit(0);
             }
+
+            case 8 -> {
+                //view database logs
+                System.out.println( "Database Logs: ");
+                dao.view_database_logs();
+
+
+            }
+
+            default -> {
+                System.out.println("Invalid choice");
+                displayMenu(email1);
+            }
+
         }
     }
 }

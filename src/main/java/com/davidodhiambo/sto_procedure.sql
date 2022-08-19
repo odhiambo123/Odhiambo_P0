@@ -1,5 +1,5 @@
 DELIMITER //
-CREATE PROCEDURE list_all_employees()
+CREATE PROCEDURE list_all_my_employees()
 BEGIN
     select * from employee;
 END //

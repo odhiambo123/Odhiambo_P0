@@ -5,12 +5,15 @@ public class EmployeeModel {
     private String fname;
     private String lname;
     private String email;
+    private int salary;
 
-    public EmployeeModel(int id, String fname, String lname, String email) {
+
+    public EmployeeModel(int id, String fname, String lname, String email, int salary) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.email = email;
+        this.salary = salary;
 
     }
 
@@ -47,9 +50,15 @@ public class EmployeeModel {
     public void setEmail(String email) {
         this.email = email;
     }
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+    public int getSalary() {
+        return salary;
+    }
 
     @Override
     public String toString() {
-        return "EmployeeModel{" + "id=" + id + ", fname=" + fname + ", lname=" + lname + ", email=" + email + '}';
+        return "EmployeeModel{" + "id=" + id + ", fname=" + fname + ", lname=" + lname + ", email=" + email +  ", salary=" + salary + '}';
     }
 }
