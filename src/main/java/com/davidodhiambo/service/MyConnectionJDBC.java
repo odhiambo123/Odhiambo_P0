@@ -12,6 +12,9 @@ public class MyConnectionJDBC {
     static Connection connection = null;
     private MyConnectionJDBC() {}
 
+        //interface connection extends java.sql.Wrapper, AutoCloseable
+        // A connection (session) with a specific database.
+        // SQL statements are executed and results are returned within the context of a connection
        public static Connection getConnection(){
         //*******************************************************************
         try(InputStream input = new FileInputStream("src/main/java/com/davidodhiambo/service/config.properties")){
@@ -27,9 +30,8 @@ public class MyConnectionJDBC {
             e.printStackTrace();
 
         }
-
         return connection;
        }
-
+       // end of getConnection()
 
 }

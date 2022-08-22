@@ -7,8 +7,8 @@ import com.davidodhiambo.service.MyConnectionJDBC;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import static com.davidodhiambo.ui.Main.animate;
-import static com.davidodhiambo.ui.Main.border;
+import static com.davidodhiambo.ui.BannerAndBorder.animate;
+import static com.davidodhiambo.ui.BannerAndBorder.border;
 
 public class EmployeeMenu {
     static Scanner sc = new Scanner(System.in);

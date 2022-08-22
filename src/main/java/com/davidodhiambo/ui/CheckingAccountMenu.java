@@ -7,22 +7,13 @@ import com.davidodhiambo.service.MyConnectionJDBC;
 import java.io.Console;
 import java.util.Scanner;
 
+import static com.davidodhiambo.ui.BannerAndBorder.animate;
+import static com.davidodhiambo.ui.BannerAndBorder.border;
+
 public class CheckingAccountMenu {
     static BankDao dao = BankDaoFactory.getAccounts();
-    public static void border() {
-        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*\n*----------------------------------------*");
-    }
-    public static void animate(){
-        for (int i = 0; i < 3; i++) {
-            System.out.print("-->");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
-    }
+
     private static Scanner sc = new Scanner(System.in);
     public static void myOptions(String email1) {
         border();
@@ -36,19 +27,13 @@ public class CheckingAccountMenu {
         int choice = Integer.parseInt(sc.nextLine());
         switch (choice) {
             case 1 -> {
-                /*System.out.println("Enter your email : ");
-                String email = sc.nextLine();*/
-                animate();
-                border();
                 System.out.println("Your balance is : " + dao.get_Checking_balance(email1));
                 border();
                 myOptions(email1);
             }
             case 2 -> {
-                /*System.out.println("Enter your email : ");
-                String email = sc.nextLine();*/
-                System.out.println("Enter amount to deposit : ");
-                double amount = Double.parseDouble(sc.nextLine());
+                System.out.println("Enter amount to deposit : ");  double amount = Double.parseDouble(sc.nextLine());
+
                 if (amount < 0) {
                     System.out.println("Whoops!! You Entered a negative amount. Please try again.");
                     myOptions(email1);

@@ -58,7 +58,8 @@ insert into savingsaccount(fname,lname,email,password,deposit,balance) values('J
 insert into employee(fname, lname, email, password) VALUES ('Xuma', 'Azike','xuma@mail.com','secret');
 INSERT INTO employee(fname, lname, email, password) VALUES ('Jayodhi', 'Kai','jbg@mail.com','secret');
 
-#Store procedure to get employees.
+###  Store procedure to get employees.
+
 DELIMITER //
 CREATE PROCEDURE list_all_my_employees()
 BEGIN
@@ -84,7 +85,7 @@ where c.email = s.email
 group by c.email, s.email having count(*) >= 1
 order by count(*) desc
 ;
-#show database contents
+### SHOW database contents
 
 DELETE FROM employee WHERE email = 'JANBO';
 
